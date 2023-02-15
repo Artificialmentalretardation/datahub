@@ -207,6 +207,24 @@ services:
       - ${DATAHUB_MAPPED_ZK_PORT:-2181}:2181
     volumes:
       - zkdata:/var/lib/zookeeper
+  mysql-backup:
+    container_name: mysql-backup
+    hostname: mysql-backup
+    depends_on:
+    - mysql
+    user: "0"
+    image: databack/mysql-backup
+    restart: on-failure:5
+    volumes:
+     - ${HOME}/datahub/backup/mysql:/db
+    environment:
+     - DB_DUMP_TARGET=/db
+     - DB_DUMP_SAFECHARS=true
+     - DB_USER=root
+     - DB_PASS=datahub
+     - DB_SERVER=mysql
+     - DB_PORT=3306
+     - 'DB_DUMP_CRON=0 3 * * *'
 version: "2.3"
 volumes:
   esdata: null
