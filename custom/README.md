@@ -4,6 +4,7 @@ source .env
 ```
 
 # Install
+
 ```bash
 yum install -y cyrus-sasl-devel
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
@@ -18,12 +19,14 @@ chmod +x /usr/local/bin/docker-compose
 ```
 
 # Start
+
 ```bash
 docker-compose -p datahub up -d
 datahub docker check
 ```
 
 + create ingestion on WebUI
+
 ```bash
 # get your cookies & headers via chrome browser. save to credential.py
 # https://curlconverter.com/
@@ -32,6 +35,7 @@ python ingestions.py
 ```
 
 # Backup
+
 ```bash
 docker run --rm \
     --network="datahub_network" \
@@ -47,26 +51,23 @@ docker run --rm \
     databack/mysql-backup
 ```
 
-# RestoreIndices
-https://datahubproject.io/docs/how/restore-indices
+# Restore
 
 ```bash
-# https://datahubproject.io/docs/docker/datahub-upgrade
-docker run --rm \
-    --env-file .env \
-    --network="datahub_network" \
-    acryldata/datahub-upgrade:${DATAHUB_VERSION} \
-    -u RestoreIndices
+cd /root/datahub/backup/mysql
+tar -xzf db_backup_2023-03-09T03-00-07Z.tgz
+datahub docker quickstart --restore --restore-file /root/datahub/backup/mysql/backup_2023-03-09T03-00-07Z.sql
 ```
 
 # Upgrade
+
 ```bash
 datahub docker nuke --keep-data
 ```
 
 # Destory
+
 ```bash
 # https://datahubproject.io/docs/quickstart#resetting-datahub
 datahub docker nuke
 ```
-
