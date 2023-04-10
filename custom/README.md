@@ -10,9 +10,12 @@ yum install -y cyrus-sasl-devel
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 bash Miniconda3-latest-Linux-x86_64.sh
 pip install --upgrade pip wheel setuptools
+pip install acryl-datahub-actions==${ACTIONS_VERSION}
 pip install acryl-datahub==${DATAHUB_VERSION}
 pip install acryl-datahub[hive]==${DATAHUB_VERSION}
-pip install acryl-datahub-actions==${ACTIONS_VERSION}
+pip install acryl-datahub[mysql]==${DATAHUB_VERSION}
+pip install acryl-datahub[kafka]==${DATAHUB_VERSION}
+pip install acryl-datahub[elasticsearch]==${DATAHUB_VERSION}
 
 curl -SL https://github.com/docker/compose/releases/download/v2.6.1/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
