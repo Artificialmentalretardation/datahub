@@ -69,6 +69,7 @@ services:
     - ${DATAHUB_MAPPED_FRONTEND_PORT:-9002}:9002
     volumes:
     - ${HOME}/.datahub/plugins:/etc/datahub/plugins
+    - ./user.props:/datahub-frontend/conf/user.props
   datahub-gms:
     depends_on:
       datahub-upgrade:
